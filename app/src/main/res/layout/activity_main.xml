@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background1"
+    tools:context=".MainActivity">
+
+    <!--
+    <com.varunest.sparkbutton.SparkButton
+        android:id="@+id/spark_button"
+        android:layout_width="129dp"
+        android:layout_height="129dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="180dp"
+        android:layout_marginEnd="133dp"
+        android:layout_marginBottom="301dp"
+        app:sparkbutton_activeImage="@drawable/tiik"
+        app:sparkbutton_iconSize="70dp"
+        app:sparkbutton_inActiveImage="@drawable/taak"
+        app:sparkbutton_primaryColor="@color/ciel"
+        app:sparkbutton_secondaryColor="@color/pink" />
+-->
+
+    <ImageView
+        android:id="@+id/imageLogo"
+        android:layout_width="325dp"
+        android:layout_height="142dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="33dp"
+        android:layout_marginEnd="53dp"
+        android:layout_marginBottom="515dp"
+        app:srcCompat="@drawable/pebble_people_running__1_" />
+
+
+    <EditText
+        android:id="@+id/editTextTextEmailAddress"
+        android:layout_width="346dp"
+        android:layout_height="59dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="391dp"
+        android:background="@drawable/edit"
+        android:ems="10"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:textAlignment="center" />
+
+
+    <TextView
+        android:id="@+id/editTextTextEmailAddressBackground"
+        android:layout_width="64dp"
+        android:layout_height="60dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="312dp"
+        android:layout_marginBottom="390dp"
+        android:background="@drawable/edit2"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="324dp"
+        android:layout_marginBottom="313dp"
+        android:background="#A31342"
+        />
+
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:layout_width="347dp"
+        android:layout_height="58dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="312dp"
+        android:background="@drawable/edit"
+        android:ems="10"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:textAlignment="center" />
+
+    <ImageView
+        android:id="@+id/showHidePassword"
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="323dp"
+        android:src="@drawable/ic_baseline_visibility" />
+
+    <TextView
+        android:id="@+id/backgroundPassword"
+        android:layout_width="64dp"
+        android:layout_height="60dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="312dp"
+        android:layout_marginBottom="312dp"
+        android:background="@drawable/edit2"
+        android:ems="10"
+        android:inputType="none"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+
+    <ImageView
+        android:id="@+id/imageEmail"
+        android:layout_width="45dp"
+        android:layout_height="37dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="321dp"
+        android:layout_marginBottom="401dp"
+        app:srcCompat="@drawable/email" />
+
+    <Button
+        android:id="@+id/buttonLogin"
+        android:layout_width="368dp"
+        android:layout_height="59dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="31dp"
+        android:layout_marginBottom="229dp"
+        android:background="@drawable/button"
+        android:onClick="launsh click"
+        android:text="Log in"
+        android:textColor="#058073"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        tools:ignore="OnClick" />
+
+    <ImageView
+        android:id="@+id/ligne1"
+        android:layout_width="wrap_content"
+        android:layout_height="53dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="235dp"
+        android:layout_marginBottom="167dp"
+        app:srcCompat="@drawable/line_1" />
+
+    <ImageView
+        android:id="@+id/ligne2"
+        android:layout_width="wrap_content"
+        android:layout_height="41dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="174dp"
+        app:srcCompat="@drawable/line_1" />
+
+    <Button
+        android:id="@+id/buttonSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="58dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="31dp"
+        android:layout_marginBottom="87dp"
+        android:background="@drawable/button2"
+        android:text="Sign up"
+        android:onClick="clicker ici"
+        android:textAlignment="center"
+        android:textColor="#303F9A"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        tools:ignore="OnClick,UsingOnClickInXml" />
+
+    <ImageView
+        android:id="@+id/title_diet"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="97dp"
+        android:layout_marginEnd="96dp"
+        android:layout_marginBottom="480dp"
+        app:srcCompat="@drawable/diet_diet_diet____" />
+
+    <ImageView
+        android:id="@+id/imageOr"
+        android:layout_width="39dp"
+        android:layout_height="41dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="180dp"
+        android:layout_marginEnd="192dp"
+        android:layout_marginBottom="173dp"
+        app:srcCompat="@drawable/or" />
+
+    <ImageView
+        android:id="@+id/imagePassword"
+        android:layout_width="65dp"
+        android:layout_height="72dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="22dp"
+        android:layout_marginEnd="323dp"
+        android:layout_marginBottom="311dp"
+        app:srcCompat="@drawable/istockphoto" />
+
+
+</RelativeLayout>
