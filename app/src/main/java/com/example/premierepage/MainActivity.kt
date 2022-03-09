@@ -10,12 +10,24 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.regex.Pattern
 
 
-class MainActivity : AppCompatActivity() {
-private var ShowPass = false
 
+
+
+
+
+
+
+class MainActivity : AppCompatActivity() {
+    private var retrofitInterface: RetrofitInterface? = null
+
+
+    private var ShowPass = false
     private val PASSWORD_PATTERN: Pattern = Pattern.compile(
         "^" +  //"(?=.*[0-9])" +         //at least 1 digit
                 //"(?=.*[a-z])" +         //at least 1 lower case letter
@@ -28,13 +40,22 @@ private var ShowPass = false
     )
 
 
+
     private lateinit var etEmail : EditText
     private lateinit var etPassword : EditText
     private lateinit var btnValidate : Button
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val retrofit = RetrofitClient.getInstance()
+        retrofitInterface = retrofit.create(RetrofitInterface::class.java)
+
+        val i = Intent(this,ThirdActivity::class.java)
+
+
 
         showHidePassword.setOnClickListener{
             ShowPass = !ShowPass
@@ -44,6 +65,10 @@ private var ShowPass = false
        etEmail = findViewById(R.id.editTextTextEmailAddress)
         etPassword = findViewById(R.id.editTextPassword)
          btnValidate = findViewById(R.id.buttonLogin)
+
+
+
+
 
         buttonLogin.setOnClickListener{
             val email = etEmail.text.toString().trim()
@@ -60,8 +85,52 @@ private var ShowPass = false
             }
             else{
                 Toast.makeText(applicationContext, R.string.toast_msg, Toast.LENGTH_LONG).show()
-                val intent = Intent(this,ThirdActivity::class.java)
-                startActivity(intent)
+
+
+                val map = HashMap<String?, String?>()
+                map["email"] = email
+                map["password"] = password
+
+
+                val call = retrofitInterface!!.executeLogin(map)
+                call!!.enqueue(object : Callback<LoginResult?> {
+                    override fun onResponse(
+                        call: Call<LoginResult?>,
+                        response: Response<LoginResult?>
+                    ) {
+                        if (response.code() == 200) {
+                            val result = response.body()
+
+                            i.putExtra("token", result!!.getToken())
+
+                            startActivity(i)
+                            Toast.makeText(
+                                this@MainActivity, "Wrong Credentials",
+                                Toast.LENGTH_LONG
+                            ).show()
+
+
+                        } else if (response.code() == 400) {
+                            Toast.makeText(
+                                this@MainActivity, "Wrong Credentials",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<LoginResult?>, t: Throwable) {
+                        Toast.makeText(
+                            this@MainActivity, t.message,
+                            Toast.LENGTH_LONG
+                        ).show()
+                        Toast.makeText(
+                            this@MainActivity, "ahmed",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                })
+
+
 
 
             }
@@ -69,14 +138,21 @@ private var ShowPass = false
 
 
 
+
+
         buttonSignUp.setOnClickListener{
-            val intent = Intent(this,SecondDesign::class.java)
-            startActivity(intent)
+
+            val intent_Signup = Intent(this,SignupActivity::class.java)
+            startActivity(intent_Signup)
         }
 
 
 
         }
+    //fin OnCreate
+
+
+
     private fun showPassword(isShow:Boolean){
         if(isShow){
             editTextPassword.transformationMethod = HideReturnsTransformationMethod.getInstance()

@@ -1,23 +1,24 @@
 package com.example.premierepage
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.util.Patterns
 import android.widget.EditText
-import android.widget.RadioButton
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.varunest.sparkbutton.SparkButton
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_second_design.*
-import kotlinx.android.synthetic.main.activity_second_design.showHide
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.regex.Pattern
-import android.widget.Button as Button
 
-class SecondDesign : AppCompatActivity() {
+class SignupActivity : AppCompatActivity() {
+    private var retrofitInterface: RetrofitInterface? = null
+
+
     private var Show = false
     private val PASSWORD_PATTERN: Pattern = Pattern.compile(
         "^" +  //"(?=.*[0-9])" +         //at least 1 digit
@@ -30,6 +31,9 @@ class SecondDesign : AppCompatActivity() {
                 "$"
     )
 
+
+
+
     private lateinit var etUsername : EditText
     private lateinit var etEmail : EditText
     private lateinit var etPassword : EditText
@@ -37,15 +41,16 @@ class SecondDesign : AppCompatActivity() {
     private lateinit var btnValidate : SparkButton
 
 
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second_design)
+        val retrofit = RetrofitClient.getInstance()
+        retrofitInterface = retrofit.create(RetrofitInterface::class.java)
 
-        showHide.setOnClickListener{
-            Show = !Show
-            showPassword(Show)
-        }
-        showPassword(Show)
+        val  intent = Intent(this,ThirdActivity::class.java)
 
         etUsername = findViewById(R.id.username)
         etEmail = findViewById(R.id.email)
@@ -56,12 +61,18 @@ class SecondDesign : AppCompatActivity() {
 
 
 
+        showHide.setOnClickListener{
+            Show = !Show
+            showPassword(Show)
+        }
+        showPassword(Show)
+
+
         spark_button.setOnClickListener{
             val email = etEmail.text.toString().trim()
             val user = etUsername.text.toString().trim()
             val password = etPassword.text.toString().trim()
             val verif_password = etVerifyPassword.text.toString().trim()
-
 
 
             if(user.isEmpty()) {
@@ -85,15 +96,66 @@ class SecondDesign : AppCompatActivity() {
             }else if (password!=verif_password) {
                  etVerifyPassword.error ="Mot de passe incorrecte"}
             else {
-                Toast.makeText(this, "Vous avez inscit !", Toast.LENGTH_SHORT).show()
 
-                val intent = Intent(this,ThirdActivity::class.java)
-                intent.putExtra("username",user)
-                startActivity(intent)
+
+
+
+
+
+
+              //Service Signup
+
+                val map = HashMap<String?, String?>()
+                map["username"] = user
+                map["email"] = email
+                map["password"] = password
+
+
+                val call = retrofitInterface!!.executeSignup(map)
+                call!!.enqueue(object : Callback<Void?> {
+                    override fun onResponse(
+                        call: Call<Void?>,
+                        response: Response<Void?>
+                    ) {
+                        if (response.code() == 200) {
+                            //zid code t7el inflater bech yaamel verification
+                            Toast.makeText(
+                                this@SignupActivity,
+                                "Signed up successfully", Toast.LENGTH_LONG
+                            ).show()
+                            intent.putExtra("username",user)
+                            startActivity(intent)
+
+                        } else if (response.code() == 400) {
+                            Toast.makeText(
+                                this@SignupActivity,
+                                "Already registered", Toast.LENGTH_LONG
+                            ).show()
+                        }
+                    }
+
+
+                    override fun onFailure(call: Call<Void?>, t: Throwable) {
+                        Toast.makeText(
+                            this@SignupActivity, t.message,
+                            Toast.LENGTH_LONG
+                        ).show()
+
+                    }
+                })
+            }
+
+
             }
     }
 
-    }
+   //fin OnCreate
+
+
+
+
+
+
     private fun showPassword(isShow:Boolean){
         if(isShow){
             password.transformationMethod = HideReturnsTransformationMethod.getInstance()
@@ -104,4 +166,15 @@ class SecondDesign : AppCompatActivity() {
         }
         password.setSelection(password.text.toString().length)
     }
-}
+
+
+
+
+
+
+
+    }
+
+
+
+
